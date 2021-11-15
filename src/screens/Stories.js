@@ -1,10 +1,16 @@
-import React, { useRef, useState } from 'react';
-import { FlatList, Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
-// import Modal from 'react-native-modalbox';
-import { CubeNavigationHorizontal } from 'react-native-3dcube-navigation';
-import AllStories from '../constants/AllStories';
-import StoryContainer from '../components/StoryContainer';
-
+import React, { useRef, useState } from "react";
+import {
+  FlatList,
+  Image,
+  Modal,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+} from "react-native";
+import { CubeNavigationHorizontal } from "react-native-3dcube-navigation";
+import AllStories from "../constants/AllStories";
+import StoryContainer from "../components/StoryContainer";
 
 const Stories = (props) => {
   const [isModelOpen, setModel] = useState(false);
@@ -46,16 +52,15 @@ const Stories = (props) => {
   const onScrollChange = (scrollValue) => {
     if (currentScrollValue > scrollValue) {
       onStoryNext(true);
-      console.log('next');
+      console.log("next");
       setCurrentScrollValue(scrollValue);
     }
     if (currentScrollValue < scrollValue) {
       onStoryPrevious();
-      console.log('previous');
+      console.log("previous");
       setCurrentScrollValue(scrollValue);
     }
   };
-
 
   return (
     <View style={styles.container}>
@@ -63,11 +68,12 @@ const Stories = (props) => {
         data={AllStories}
         horizontal
         renderItem={({ item, index }) => (
-          <TouchableOpacity onPress={() => onStorySelect(index)}>
-            <Image
-              style={styles.circle}
-              source={{ uri: item.profile }}
-            />
+          <TouchableOpacity
+            style={styles.container1}
+            onPress={() => onStorySelect(index)}
+          >
+            <Image style={styles.circle} source={{ uri: item.profile }} />
+            <Text style={{ textAlign: "center" }}>{item.username}</Text>
           </TouchableOpacity>
         )}
       />
@@ -84,7 +90,11 @@ const Stories = (props) => {
         }}
         onRequestClose={onStoryClose}
       >
-        <CubeNavigationHorizontal callBackAfterSwipe={g => onScrollChange(g)} ref={modalScroll} style={styles.container}>
+        <CubeNavigationHorizontal
+          callBackAfterSwipe={(g) => onScrollChange(g)}
+          ref={modalScroll}
+          style={styles.container}
+        >
           {AllStories.map((item, index) => (
             <StoryContainer
               onClose={onStoryClose}
@@ -103,9 +113,9 @@ const Stories = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     paddingVertical: 50,
-    backgroundColor: 'rgba(255,255,255,255)',
+    backgroundColor: "rgba(255,255,255,255)",
   },
   circle: {
     width: 66,
@@ -113,12 +123,17 @@ const styles = StyleSheet.create({
     height: 66,
     borderRadius: 33,
     borderWidth: 2,
-    borderColor: '#ffd835',
+    borderColor: "#0defef",
+    padding: 5,
   },
   modal: {
     flex: 1,
   },
+  container1: {
+    display: "flex",
+    alignItems: "center",
+    // justifyContent: "center",
+  },
 });
-
 
 export default Stories;

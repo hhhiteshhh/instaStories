@@ -3,7 +3,6 @@ import React from 'react';
 import { Dimensions, Image, StyleSheet, View } from 'react-native';
 import Video from 'react-native-video';
 // import Image from 'react-native-scalable-image';
-import PropTypes from 'prop-types';
 
 const ScreenWidth = Dimensions.get('window').width;
 
@@ -39,12 +38,6 @@ const Story = (props) => {
   );
 };
 
-Story.propTypes = {
-  story: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-  ]),
-};
 
 
 const styles = StyleSheet.create({

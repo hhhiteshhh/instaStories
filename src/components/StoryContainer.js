@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
   StyleSheet,
   TouchableOpacity,
   View,
-  WebView
-} from 'react-native';
-import Modal from 'react-native-modalbox';
-import GestureRecognizer from 'react-native-swipe-gestures';
-import Story from './Story';
-import UserView from './UserView';
-import Readmore from './Readmore';
-import ProgressArray from './ProgressArray';
+  WebView,
+  Text,
+} from "react-native";
+import Modal from "react-native-modalbox";
+import GestureRecognizer from "react-native-swipe-gestures";
+import Story from "./Story";
+import UserView from "./UserView";
+import Readmore from "./Readmore";
+import ProgressArray from "./ProgressArray";
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_WIDTH = Dimensions.get("window").width;
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 const StoryContainer = (props) => {
   const { user } = props;
@@ -88,7 +91,12 @@ const StoryContainer = (props) => {
       return (
         <View style={styles.loading}>
           <View style={{ width: 1, height: 1 }}>
-            <Story onImageLoaded={onImageLoaded} pause onVideoLoaded={onVideoLoaded} story={story} />
+            <Story
+              onImageLoaded={onImageLoaded}
+              pause
+              onVideoLoaded={onVideoLoaded}
+              story={story}
+            />
           </View>
           <ActivityIndicator color="white" />
         </View>
@@ -125,19 +133,29 @@ const StoryContainer = (props) => {
       <TouchableOpacity
         activeOpacity={1}
         delayLongPress={500}
-        onPress={e => changeStory(e.nativeEvent)}
+        onPress={(e) => changeStory(e.nativeEvent)}
         onLongPress={() => onPause(true)}
         onPressOut={() => onPause(false)}
         style={styles.container}
       >
         <View style={styles.container}>
-          <Story onImageLoaded={onImageLoaded} pause={isPause} isNewStory={props.isNewStory} onVideoLoaded={onVideoLoaded} story={story} />
+          <Story
+            onImageLoaded={onImageLoaded}
+            pause={isPause}
+            isNewStory={props.isNewStory}
+            onVideoLoaded={onVideoLoaded}
+            story={story}
+          />
 
           {loading()}
 
-          <UserView name={user.username} profile={user.profile} onClosePress={props.onClose} />
+          <UserView
+            name={user.username}
+            profile={user.profile}
+            onClosePress={props.onClose}
+          />
 
-          {isReadMore && <Readmore onReadMore={onReadMoreOpen} />}
+          <Readmore onReadMore={onReadMoreOpen} />
 
           <ProgressArray
             next={nextStory}
@@ -151,14 +169,108 @@ const StoryContainer = (props) => {
             length={stories.map((_, i) => i)}
             progress={{ id: currentIndex }}
           />
-
         </View>
 
-        <Modal style={styles.modal} position="bottom" isOpen={isModelOpen} onClosed={onReadMoreClose}>
-          <View style={styles.bar} />
-          <WebView source={{ uri: 'https://www.google.com' }} />
+        <Modal
+          style={styles.modal}
+          position="bottom"
+          isOpen={isModelOpen}
+          onClosed={onReadMoreClose}
+        >
+          {/* <View style={styles.bar} /> */}
+          {/* <WebView source={{ uri: 'https://www.google.com' }} /> */}
+          <View
+            style={{
+              display: "flex",
+              backgroundColor: "gray",
+              borderRadius: 30,
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: "gray",
+              }}
+            >
+              <View
+                style={{
+                  padding: 13,
+                  borderBottomColor: "#fff",
+                  borderBottomWidth: 1,
+                  width: windowWidth * 0.7,
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}
+              >
+                <TouchableOpacity>
+                  <Text
+                    style={{ textAlign: "center", color: "red", fontSize: 20 }}
+                  >
+                    Report
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  padding: 13,
+                  borderBottomColor: "#fff",
+                  borderBottomWidth: 1,
+                  width: windowWidth * 0.7,
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}
+              >
+                <TouchableOpacity>
+                  <Text
+                    style={{ textAlign: "center", color: "#fff", fontSize: 20 }}
+                  >
+                    Copy Link
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  padding: 13,
+                  borderBottomColor: "#fff",
+                  borderBottomWidth: 1,
+                  width: windowWidth * 0.7,
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  marginBottom: 7,
+                }}
+              >
+                <TouchableOpacity>
+                  <Text
+                    style={{ textAlign: "center", color: "#fff", fontSize: 20 }}
+                  >
+                    Share
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+          <View
+            style={{
+              padding: 13,
+              width: windowWidth,
+              marginLeft: "auto",
+              marginRight: "auto",
+              backgroundColor: "gray",
+              borderRadius: 30,
+              position: "absolute",
+              bottom: 2,
+            }}
+          >
+            <TouchableOpacity onPress={onReadMoreClose}>
+              <Text
+                style={{ textAlign: "center", color: "#fff", fontSize: 20 }}
+              >
+                Cancel
+              </Text>
+            </TouchableOpacity>
+          </View>
         </Modal>
-
       </TouchableOpacity>
     </GestureRecognizer>
   );
@@ -167,63 +279,62 @@ const StoryContainer = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    width: "100%",
+    justifyContent: "flex-start",
+    alignItems: "center",
     // paddingTop: 30,
-    backgroundColor: 'red',
+    backgroundColor: "red",
   },
   progressBarArray: {
-    flexDirection: 'row',
-    position: 'absolute',
+    flexDirection: "row",
+    position: "absolute",
     top: 30,
-    width: '98%',
+    width: "98%",
     height: 10,
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   userView: {
-    flexDirection: 'row',
-    position: 'absolute',
+    flexDirection: "row",
+    position: "absolute",
     top: 55,
-    width: '98%',
-    alignItems: 'center',
+    width: "98%",
+    alignItems: "center",
   },
   name: {
     fontSize: 18,
-    fontWeight: '500',
+    fontWeight: "500",
     marginLeft: 12,
-    color: 'white',
+    color: "white",
   },
   time: {
     fontSize: 12,
-    fontWeight: '400',
+    fontWeight: "400",
     marginTop: 3,
     marginLeft: 12,
-    color: 'white',
+    color: "white",
   },
-  content: { width: '100%',
-    height: '100%',
-  },
+  content: { width: "100%", height: "100%" },
   loading: {
-    backgroundColor: 'black',
-    height: '100%',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "black",
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   modal: {
-    width: '100%',
-    height: '90%',
-    backgroundColor: 'white',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    width: windowWidth,
+    height: windowHeight * 0.25,
+    backgroundColor: "white",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    position: "relative",
   },
   bar: {
     width: 50,
     height: 8,
-    backgroundColor: 'gray',
-    alignSelf: 'center',
+    backgroundColor: "gray",
+    alignSelf: "center",
     borderRadius: 4,
     marginTop: 8,
   },

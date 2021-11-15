@@ -1,7 +1,8 @@
 /* eslint-disable */
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import React from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import MI from "react-native-vector-icons/MaterialIcons";
 
 class UserView extends React.PureComponent {
   constructor(props) {
@@ -9,28 +10,33 @@ class UserView extends React.PureComponent {
   }
 
   render() {
-    const {
-      props,
-    } = this;
+    const { props } = this;
 
     return (
       <View style={styles.userView}>
-        <Image
-          source={{ uri: props.profile }}
-          style={styles.image}
-        />
+        <Image source={{ uri: props.profile }} style={styles.image} />
         <View style={{ flex: 1 }}>
           <Text style={styles.name}>{props.name}</Text>
-          <Text style={styles.time}>Posted 2h ago</Text>
+          {/* <Text style={styles.time}>Posted 2h ago</Text> */}
         </View>
-        <TouchableOpacity onPress={props.onClosePress}>
-          <Icon
-            name="close"
-            color="white"
-            size={25}
-            style={{ marginRight: 8 }}
-          />
-        </TouchableOpacity>
+        <View style={styles.right}>
+          <TouchableOpacity>
+            <MI
+              name="more-horiz"
+              color="white"
+              size={25}
+              style={{ marginRight: 8 }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={props.onClosePress}>
+            <Icon
+              name="close"
+              color="white"
+              size={25}
+              style={{ marginRight: 8 }}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -44,24 +50,29 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   userView: {
-    flexDirection: 'row',
-    position: 'absolute',
-    top: 55,
-    width: '98%',
-    alignItems: 'center',
+    flexDirection: "row",
+    position: "absolute",
+    top: 35,
+    width: "98%",
+    alignItems: "center",
   },
   name: {
     fontSize: 18,
-    fontWeight: '500',
+    fontWeight: "500",
     marginLeft: 12,
-    color: 'white',
+    color: "white",
   },
   time: {
     fontSize: 12,
-    fontWeight: '400',
+    fontWeight: "400",
     marginTop: 3,
     marginLeft: 12,
-    color: 'white',
+    color: "white",
+  },
+  right: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 
